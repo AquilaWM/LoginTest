@@ -7,13 +7,12 @@ with open("login.json") as f:
     json_data = json.loads(data)
     url = json_data["url"]
     uname = json_data["uname"]
+    passwd = json_data["passwd"]
 
-# Don't want to store the password in plain text in a file. Should be fine here
-passwd = "SuP3Rs3cREt_P455wd*!"
+with open("mfa.token") as f:
+    token = f.readline()
 
-body = {"username" : uname, "password" : passwd}
+body = {"username" : uname, "password" : passwd, "token" : token}
 
 # Test login
 response = requests.post(url, body)
-
-# Will implement MFA later
